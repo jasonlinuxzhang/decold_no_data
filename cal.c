@@ -185,6 +185,8 @@ void file_find(GHashTable *g2_unique_chunks, struct file_info *mr, int64_t mr_co
 			continue;
 		if ((1.0)*non_same_chunk_count/chunk_num > 1 - migration_threshold)
 			continue;
+		if ((1.0) * (chunk_num - non_same_chunk_count)/chunk_num < migration_threshold)
+			continue;
 
 		if (0 == non_same_chunk_count) {
 			//put the files in the common file

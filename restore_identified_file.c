@@ -83,6 +83,8 @@ void *restore_temp_thread(void *arg) {
 	sprintf(temp_identified_file_path, "%s/identified_file", source_temp_path);
 	sprintf(g_hash_file, "%s/ghash_file", target_path);
 
+    uint64_t i = 0;
+	/*
     GHashTable *recently_unique_chunks = g_hash_table_new_full(g_int64_hash, g_fingerprint_equal, NULL, free_chunk);
     FILE *hash_filep = fopen(g_hash_file, "r");
     if (NULL == hash_filep)
@@ -95,7 +97,6 @@ void *restore_temp_thread(void *arg) {
 
     printf("%s have %lu item\n", target_path, item_count);
 
-    uint64_t i = 0;
     while (i < item_count) {
 		fingerprint *fp = malloc(sizeof(fingerprint));
 		struct chunk *ck = malloc(sizeof(struct chunk)); 
@@ -105,6 +106,9 @@ void *restore_temp_thread(void *arg) {
 		i++;
     }
     fclose(hash_filep);
+	*/
+	GHashTable *recently_unique_chunks = NULL;
+	recently_unique_chunks = load_hash_table(g_hash_file);
 
     FILE *filep;
 no_ghash:
@@ -231,7 +235,6 @@ void *write_identified_files_to_destor_thread(void *arg) {
 				recordbufoff = 0;
 	    	}		
 
-	    	struct chunk *ck = one_file->fps[i];
 	    	memcpy(recordbuf + recordbufoff, &one_file->fps[i], sizeof(fingerprint)); 
 	    	recordbufoff += sizeof(fingerprint);
 	    	memcpy(recordbuf + recordbufoff, &one_file->fp_cids[i], sizeof(containerid)); 

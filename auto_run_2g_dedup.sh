@@ -34,3 +34,9 @@ echo ""
 
 mv $2/new.meta $2/recipes/bv0.meta 
 mv $2/new.recipe $2/recipes/bv0.recipe
+
+
+echo ""
+echo ""
+
+./get_total_data_size $1 $2

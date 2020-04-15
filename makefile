@@ -17,7 +17,7 @@ LINKFLAGS =
 #LIBS    += -lglib 
 
 
-all : obtain_inter_data restore_identified_file restore_migriated_file
+all : obtain_inter_data restore_identified_file restore_migriated_file get_total_data_size
 .PHONY:all
 
 BIN_PATH = ./
@@ -32,6 +32,10 @@ restore_identified_file : $(OBJECT)
 
 OBJECT := restore_migriated_file.o recipe.o common.o queue.o sync_queue.o containerstore.o serial.o
 restore_migriated_file : $(OBJECT) 
+	$(LINK) $(FLAGS) $(LINKFLAGS) -o $@ $^ $(LIBS)
+
+OBJECT := get_total_data_size.o recipe.o common.o queue.o sync_queue.o containerstore.o serial.o
+get_total_data_size : $(OBJECT) 
 	$(LINK) $(FLAGS) $(LINKFLAGS) -o $@ $^ $(LIBS)
 
 

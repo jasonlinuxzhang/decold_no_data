@@ -79,4 +79,5 @@ gboolean g_fid_equal(const void *fid1, const void *fid2);
 void free_fid(void *fid);
 uint64_t get_hashtable_data_size(GHashTable *table);
 
+uint64_t get_fp_count_from_hash(GHashTable *ghash);
 #endif

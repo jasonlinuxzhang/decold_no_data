@@ -224,3 +224,19 @@ void myprintf(const char *cmd, ...)
     vprintf(cmd,args);  
     va_end(args);   
 } 
+
+
+void get_one_fp_dup_size(gpointer key, gpointer value, gpointer user_data) {
+	uint64_t *total_size = (uint64_t *)user_data;
+    fingerprint *fp = key;
+    struct chunk *ck = value;
+	*total_size += ck->ref_count; 
+}
+uint64_t get_fp_count_from_hash(GHashTable *ghash)
+{
+	uint64_t total_size = 0;
+    g_hash_table_foreach(ghash, get_one_fp_dup_size, &total_size);
+
+	return total_size;
+
+}
